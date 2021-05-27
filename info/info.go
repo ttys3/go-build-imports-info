@@ -1,3 +1,4 @@
+// this file is mod from https://go.googlesource.com/tools/+/refs/changes/52/315852/4/internal/lsp/debug/info.go
 // Copyright 2019 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
