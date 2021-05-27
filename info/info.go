@@ -9,7 +9,6 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"reflect"
 	"runtime/debug"
 	"strings"
 )
@@ -141,26 +140,4 @@ func printModuleInfo(w io.Writer, m *Module, mode PrintMode) {
 		fmt.Fprintf(w, " => %v", m.Replace.Path)
 	}
 	fmt.Fprintf(w, "\n")
-}
-
-type field struct {
-	index []int
-}
-
-var fields []field
-
-// find all the options. The presumption is that the Options are nested structs
-// and that pointers don't need to be dereferenced
-func swalk(t reflect.Type, ix []int, indent string) {
-	switch t.Kind() {
-	case reflect.Struct:
-		for i := 0; i < t.NumField(); i++ {
-			fld := t.Field(i)
-			ixx := append(append([]int{}, ix...), i)
-			swalk(fld.Type, ixx, indent+". ")
-		}
-	default:
-		// everything is either a struct or a field (that's an assumption about Options)
-		fields = append(fields, field{ix})
-	}
 }

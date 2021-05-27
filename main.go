@@ -1,7 +1,9 @@
 package main
 
 import (
+	"context"
 	"fmt"
+	"os"
 
 	"github.com/ttys3/go-build-imports-info/info"
 
@@ -32,14 +34,5 @@ func init() {
 }
 
 func main() {
-	fmt.Println("-----------------------------------------")
-	fmt.Println("go packages this program imports: ")
-	versionInfo := info.VersionInfo()
-
-	// tricks learned from https://go-review.googlesource.com/c/tools/+/315852/4/internal/lsp/general.go#99
-	// https://github.com/golang/go/issues/45732
-	for _, dep := range versionInfo.Deps {
-		fmt.Printf("%#v\n", dep)
-	}
-	fmt.Println("-----------------------------------------")
+	info.PrintVersionInfo(context.Background(), os.Stdout, true, info.Markdown)
 }
